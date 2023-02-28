@@ -17,23 +17,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class OrderServiceTest {
 
-    @Autowired    EntityManager em;
+    @Autowired
+    EntityManager em;
 
-    @Autowired   OrderService orderService;
+    @Autowired
+    OrderService orderService;
     @Autowired
     OrderRepository orderRepository;
+
     @Test
-    public void 상품주문() throws Exception{
+    public void 상품주문() throws Exception {
 
         Member member = createMember();
 
-        Book book = createBook("시골 JPA",10000,10);
+        Book book = createBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
 
@@ -50,7 +55,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void 주문취소() throws Exception{
+    public void 주문취소() throws Exception {
         Member member = createMember();
         Book item = createBook("시골 JPA", 10000, 10);
 
@@ -84,7 +89,7 @@ public class OrderServiceTest {
     }
 
     @Test(expected = NotEnoughStockException.class)
-    public void 상품주문_재고수량초과() throws Exception{
+    public void 상품주문_재고수량초과() throws Exception {
         Member member = createMember();
         Item item = createBook("시골 JPA", 10000, 10);
         int orderCount = 11;
